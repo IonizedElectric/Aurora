@@ -17,9 +17,34 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Your Day',
+      url: '/today',
+      icon: 'today'
+    },
+    {
+      title: 'For You',
+      url: '/for-you',
+      icon: 'happy'
+    },
+    {
+      title: 'History',
+      url: '/history',
+      icon: 'calendar'
+    },
+    {
+      title: 'Stats',
+      url: '/stats',
+      icon: 'stats'
+    },
+    {
+      title: 'Settings',
+      url: '/settings',
+      icon: 'settings'
+    },
+    {
+      title: 'About',
+      url: '/about',
+      icon: 'help'
     }
   ];
 
