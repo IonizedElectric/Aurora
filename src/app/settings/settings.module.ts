@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 //import {AboutPage} from '../about/about';
 import { IonicModule } from '@ionic/angular';
-
+import { RouterModule } from '@angular/router';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
