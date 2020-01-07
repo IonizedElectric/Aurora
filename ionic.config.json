@@ -1,5 +1,7 @@
 {
   "name": "Aurora",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
