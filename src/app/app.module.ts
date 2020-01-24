@@ -15,8 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
-    IonicStorageModule.forRoot()
+    AppRoutingModule//,
+    //IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,

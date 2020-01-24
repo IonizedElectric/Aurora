@@ -8,5 +8,50 @@
 </ion-header>
 
 <ion-content>
-  <div id="my_dataviz"></div>
+
+  <!--<div id="my_dataviz"></div>-->
+  <ion-list style="width:100%;">
+    <ion-item>
+      <div style="width:100%;">
+      <p>Happiness</p>
+      <p>
+      <ion-range value="100" >
+        <ion-label slot="start">😭</ion-label>
+        <ion-label slot="end">😀</ion-label>
+      </ion-range>
+      <p>
+      </div>
+    </ion-item>
+    <ion-item class="item-text-wrap"><div style="width:100%;"><p>Anger</p><p>
+      <ion-range value="100">
+        <ion-label slot="start">👌</ion-label>
+        <ion-label slot="end">😡</ion-label>
+      </ion-range></p>
+      </div>
+    </ion-item>
+    <ion-item class="item-text-wrap"><div style="width:100%;"><p>Stress</p><p>
+      <ion-range value="100">
+        <ion-label slot="start">👌</ion-label>
+        <ion-label slot="end">😰</ion-label>
+      </ion-range></p>
+      </div>
+  </ion-item>
+  <ion-item class="item-text-wrap"><div style="width:100%;">
+    <p>Energy</p>
+    <p>
+    <ion-range value="100">
+      <ion-label slot="start">😴</ion-label>
+      <ion-label slot="end">⚡</ion-label>
+    </ion-range>
+    </p></div>
+  </ion-item>
+  <ion-item class="item-text-wrap"><div style="width:100%;"><p>Worry</p><p>
+      <ion-range value="100">
+        <ion-label slot="start">👌</ion-label>
+        <ion-label slot="end">😟</ion-label>
+      </ion-range></p>
+      </div>
+  </ion-item>
+</ion-list>
+<ion-button color="primary" style="width:100%;" (click)="saveValues()">Save</ion-button>
 </ion-content>
