@@ -17,7 +17,6 @@ import { AppRoutingModule } from './app-routing.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     //NativeStorageModule.forRoot()
-    //IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
