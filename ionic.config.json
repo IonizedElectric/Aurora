@@ -1,7 +1,8 @@
 {
   "name": "Aurora",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

@@ -23,8 +23,8 @@ export class HomePage implements OnInit {
     worry: number;
     data: Array<number>;
     nowDate: Date;
-    presentAlert(head, sub, msg) {
-        const alert = this.alertController.create({
+    async  presentAlert(head, sub, msg) {
+        const alert = await this.alertController.create({
             header: head,
             subHeader: sub,
             message: msg,
