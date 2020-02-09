@@ -8,49 +8,60 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-list style="width:100%;">
-    <ion-item>
-      <div style="width:100%;">
-      <p>Happiness</p>
-      <p>
-      <ion-range [(ngModel)]="happy" value="100" >
-        <ion-label slot="start">😭</ion-label>
-        <ion-label slot="end">😀</ion-label>
-      </ion-range>
-      <p>
-      </div>
-    </ion-item>
-    <ion-item class="item-text-wrap"><div style="width:100%;"><p>Anger</p><p>
-      <ion-range [(ngModel)]="angry" value="100">
-        <ion-label slot="start">👌</ion-label>
-        <ion-label slot="end">😡</ion-label>
-      </ion-range></p>
-      </div>
-    </ion-item>
-    <ion-item class="item-text-wrap"><div style="width:100%;"><p>Stress</p><p>
-      <ion-range [(ngModel)]="stressy" value="100">
-        <ion-label slot="start">👌</ion-label>
-        <ion-label slot="end">😰</ion-label>
-      </ion-range></p>
-      </div>
-  </ion-item>
-  <ion-item class="item-text-wrap"><div style="width:100%;">
-    <p>Energy</p>
-    <p>
-    <ion-range [(ngModel)]="energy" value="100">
-      <ion-label slot="start">😴</ion-label>
-      <ion-label slot="end">⚡</ion-label>
-    </ion-range>
-    </p></div>
-  </ion-item>
-  <ion-item class="item-text-wrap"><div style="width:100%;"><p>Worry</p><p>
-      <ion-range [(ngModel)]="worry" value="100">
-        <ion-label slot="start">👌</ion-label>
-        <ion-label slot="end">😟</ion-label>
-      </ion-range></p>
-      </div>
-  </ion-item>
-</ion-list>
-<ion-button color="primary" style="width:100%;" (click)="save()">Save</ion-button>
+    <div id="lineGraph"></div>
+    <ion-list style="width:100%;">
+        <ion-item>
+            <div style="width:100%;">
+                <p>Happiness</p>
+                <p>
+                    <ion-range [(ngModel)]="happy" value="100">
+                        <ion-label slot="start">😭</ion-label>
+                        <ion-label slot="end">😀</ion-label>
+                    </ion-range>
+                <p>
+            </div>
+        </ion-item>
+        <ion-item class="item-text-wrap">
+            <div style="width:100%;">
+                <p>Anger</p><p>
+                    <ion-range [(ngModel)]="angry" value="100">
+                        <ion-label slot="start">👌</ion-label>
+                        <ion-label slot="end">😡</ion-label>
+                    </ion-range>
+                </p>
+            </div>
+        </ion-item>
+        <ion-item class="item-text-wrap">
+            <div style="width:100%;">
+                <p>Stress</p><p>
+                    <ion-range [(ngModel)]="stressy" value="100">
+                        <ion-label slot="start">👌</ion-label>
+                        <ion-label slot="end">😰</ion-label>
+                    </ion-range>
+                </p>
+            </div>
+        </ion-item>
+        <ion-item class="item-text-wrap">
+            <div style="width:100%;">
+                <p>Energy</p>
+                <p>
+                    <ion-range [(ngModel)]="energy" value="100">
+                        <ion-label slot="start">😴</ion-label>
+                        <ion-label slot="end">⚡</ion-label>
+                    </ion-range>
+                </p>
+            </div>
+        </ion-item>
+        <ion-item class="item-text-wrap">
+            <div style="width:100%;">
+                <p>Worry</p><p>
+                    <ion-range [(ngModel)]="worry" value="100">
+                        <ion-label slot="start">👌</ion-label>
+                        <ion-label slot="end">😟</ion-label>
+                    </ion-range>
+                </p>
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-button color="primary" style="width:100%;" (click)="save()">Save</ion-button>
 </ion-content>

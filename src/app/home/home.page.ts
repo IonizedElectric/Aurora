@@ -32,6 +32,8 @@ export class HomePage implements OnInit {
         });
     }
     save() {
+        this.presentAlert("Networking Error", "Error 0x1", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
+
         this.data = [this.happy, this.angry, this.stressy, this.energy, this.worry];
         try {
             
