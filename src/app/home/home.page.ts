@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { HTTP } from '@ionic-native/http/ngx';
 import { map } from 'rxjs/operators';
 import { promise } from 'protractor';
 import { from, defer } from 'rxjs';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AlertController } from '@ionic/angular';
+import { Chart } from 'chart.js';
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
@@ -13,14 +14,61 @@ import { AlertController } from '@ionic/angular';
 })
 
 export class HomePage implements OnInit {
+    @ViewChild("lineCanvas", { static: false }) lineCanvas: ElementRef;
+    private lineChart: Chart;
     constructor(private http: HTTP, public alertController: AlertController, private nativeStorage: NativeStorage) { }
-    ngOnInit() {
-    }
     happy: number;
     angry: number;
     stressy: number;
     energy: number;
     worry: number;
+    ngOnInit() {
+        this.happy = 50;
+        this.angry = 50;
+        this.stressy = 50;
+        this.energy = 50;
+        this.worry = 50;
+        this.lineChart = new Chart(null, {
+            type: 'line',
+            data: {
+                labels: ["1500", "1600", "1700", "1750", "1800", "1850", "1900", "1950", "1999", "2050"],
+                datasets: [{
+                    data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
+                    label: "Hapiness",
+                    borderColor: "#3e95cd",
+                    fill: false
+                }, {
+                    data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
+                    label: "Anger",
+                    borderColor: "#8e5ea2",
+                    fill: false
+                }, {
+                    data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
+                    label: "Worry",
+                    borderColor: "#3cba9f",
+                    fill: false
+                }, {
+                    data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
+                    label: "Stress",
+                    borderColor: "#e8c3b9",
+                    fill: false
+                }, {
+                    data: [6, 3, 2, 2, 7, 4, 5, 15, 0, 9999],
+                    label: "Energy",
+                    borderColor: "#c45850",
+                    fill: false
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Feelings'
+                }
+            }
+        });
+    }
+    
     data: Array<number>;
     nowDate: Date;
     async  presentAlert(head, sub, msg) {
@@ -32,7 +80,7 @@ export class HomePage implements OnInit {
         });
     }
     save() {
-        this.presentAlert("Networking Error", "Error 0x1", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
+        //this.presentAlert("Networking Error", "Error 0x1", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
 
         this.data = [this.happy, this.angry, this.stressy, this.energy, this.worry];
         try {
@@ -53,16 +101,16 @@ export class HomePage implements OnInit {
                     );
             }
             catch(error){
-                this.presentAlert("Something is <b>very</b> wrong", "Error 0x2", "We failed to save locally. The best thing you can do rigt now is restart the app.");
+                this.presentAlert("Something is <b>very</b> wrong", "Error 0x2", "We failed to save locally. The best thing you can do right now is restart the app.");
             }
             /*
             console.log("Happiness: " + this.happy.toString() + "\n" +
                 "Anger: " + this.angry.toString() + "\n" +
                 "Stress: " + this.stressy.toString() + "\n" +
                 "Energy: " + this.energy.toString() + "\n" +
-                "Worry: " + this.worry.toString());*/
+                "Worry: " + this.worry.toString());
             //this.nativeStorage.setItem(new Date(), {property: values, anotherProperty: 'anotherValue'}).then(() => console.log('Stored item!'),error => console.error('Error storing item', error));
-        };
+        */};
         
 
 

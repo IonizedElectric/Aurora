@@ -8,8 +8,12 @@
 </ion-header>
 
 <ion-content>
-    <div id="lineGraph"></div>
-    <ion-list style="width:100%;">
+    <ion-card>
+        <ion-card-content>
+            <canvas #lineCanvas></canvas>
+        </ion-card-content>
+    </ion-card>
+    <ion-list style="width:100%;color:red;">
         <ion-item>
             <div style="width:100%;">
                 <p>Happiness</p>
