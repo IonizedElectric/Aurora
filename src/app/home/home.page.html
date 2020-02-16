@@ -7,13 +7,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content><div id="content">
     <ion-card>
         <ion-card-content>
             <canvas #lineCanvas></canvas>
         </ion-card-content>
     </ion-card>
-    <ion-list style="width:100%;color:red;">
+    <ion-list style="width:100%;">
         <ion-item>
             <div style="width:100%;">
                 <p>Happiness</p>
@@ -67,5 +67,5 @@
             </div>
         </ion-item>
     </ion-list>
-    <ion-button color="primary" style="width:100%;" (click)="save()">Save</ion-button>
+    <ion-button color="primary" style="width:100%;" (click)="save()">Save</ion-button></div>
 </ion-content>

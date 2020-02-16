@@ -1,0 +1,21 @@
+@media (prefers-color-scheme: light) {
+    ion-header {
+        --background: white;
+        color: black;
+    }
+
+    .ion-content {
+        background: white;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    ion-header {
+        --background: black;
+        color: white;
+    }
+
+    .ion-content {
+        background: black;
+    }
+}

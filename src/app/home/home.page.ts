@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
         this.angry = 50;
         this.stressy = 50;
         this.energy = 50;
-        this.worry = 50;
+        this.worry = 50;/*
         this.lineChart = new Chart(null, {
             type: 'line',
             data: {
@@ -66,7 +66,7 @@ export class HomePage implements OnInit {
                     text: 'Feelings'
                 }
             }
-        });
+        });*/
     }
     
     data: Array<number>;
