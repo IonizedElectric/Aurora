@@ -71,17 +71,50 @@ export class HomePage implements OnInit {
     
     data: Array<number>;
     nowDate: Date;
-    async  presentAlert(head, sub, msg) {
+    async presentAlertConfirm(header1,message) {
         const alert = await this.alertController.create({
-            header: head,
-            subHeader: sub,
-            message: msg,
-            buttons: ['OK']
+            header: header1,
+            message: message,
+            buttons: [
+                {
+                    text: 'But I like this app!',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        console.log('Confirm Cancel: blah');
+                    }
+                }, {
+                    text: 'EXTERMINATE!',
+                    handler: () => {
+                        this.presentAlert("No can do", "Apple doesn't like closing the app through code, so you're going to have to do it manually.");
+                    }
+                }
+            ]
         });
+
+        await alert.present();
+    }
+    async presentAlert(header1, message) {
+        const alert = await this.alertController.create({
+            header: header1,
+            message: message,
+            buttons: [
+                {
+                    text: 'Okay',
+                    handler: () => {
+                        console.log('Confirm Okay');
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
     }
     save() {
-        //this.presentAlert("Networking Error", "Error 0x1", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
+        //this.presentAlertConfirm("Something is <b>very</b> wrong - 0x2", "We failed to save locally. The best thing you can do right now is <s>cry</s>restart the app.");
 
+        //this.presentAlert("Networking Error",  "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
+        console.log("Attempting save");
         this.data = [this.happy, this.angry, this.stressy, this.energy, this.worry];
         try {
             
@@ -90,7 +123,7 @@ export class HomePage implements OnInit {
                     map(resp => { return resp }));
         }
         catch (error) {
-            this.presentAlert("Networking Error", "Error 0x1", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
+            this.presentAlert("Networking Error - 0x01", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
 
             try {
                 this.nowDate = new Date();
@@ -101,7 +134,7 @@ export class HomePage implements OnInit {
                     );
             }
             catch(error){
-                this.presentAlert("Something is <b>very</b> wrong", "Error 0x2", "We failed to save locally. The best thing you can do right now is restart the app.");
+                this.presentAlertConfirm("Something is <b>very</b> wrong - 0x2",  "We failed to save locally. The best thing you can do right now is <s>cry</s>restart the app.");
             }
             /*
             console.log("Happiness: " + this.happy.toString() + "\n" +
