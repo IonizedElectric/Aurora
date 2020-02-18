@@ -46,7 +46,11 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },  {
+    path: 'submit',
+    loadChildren: () => import('./submit/submit.module').then( m => m.SubmitPageModule)
   }
+
 ];
 
 @NgModule({

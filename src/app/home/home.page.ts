@@ -30,46 +30,8 @@ export class HomePage implements OnInit {
         this.angry = 50;
         this.stressy = 50;
         this.energy = 50;
-        this.worry = 50;/*
-        this.lineChart = new Chart(null, {
-            type: 'line',
-            data: {
-                labels: ["1500", "1600", "1700", "1750", "1800", "1850", "1900", "1950", "1999", "2050"],
-                datasets: [{
-                    data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-                    label: "Hapiness",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }, {
-                    data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-                    label: "Anger",
-                    borderColor: "#8e5ea2",
-                    fill: false
-                }, {
-                    data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-                    label: "Worry",
-                    borderColor: "#3cba9f",
-                    fill: false
-                }, {
-                    data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
-                    label: "Stress",
-                    borderColor: "#e8c3b9",
-                    fill: false
-                }, {
-                    data: [6, 3, 2, 2, 7, 4, 5, 15, 0, 9999],
-                    label: "Energy",
-                    borderColor: "#c45850",
-                    fill: false
-                }
-                ]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Feelings'
-                }
-            }
-        });*/
+        this.worry = 50;
+ 
     }
     ionViewDidEnter() {
         this.createLineChart();
@@ -81,7 +43,7 @@ export class HomePage implements OnInit {
                 labels: ['Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Yesterday', 'Today'],
                 datasets: [{
                     label: 'Happiness',
-                    data: [25, 38, 50, 69, 69, 75, 90, 3],
+                    data: [25, 38, 50, 69, null, 75, 90, 3],
                     backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
                     borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
                     borderWidth: 1

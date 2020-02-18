@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Submit a suggestion</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <h3>Title</h3>
+    <ion-input placeholder="Sum up your suggestion in one word" [(ngModel)]="title"></ion-input>
+    <br />
+    <h3>Subtitle</h3>
+    <ion-input placeholder="Expand on your title - one sentence." [(ngModel)]="sub"></ion-input>
+    <br />
+    <h3>Content</h3>
+    <ion-input placeholder="Now go into detail" [(ngModel)]="content"></ion-input>
+    <br />
+    <ion-button color="primary" style="width:100%;" (click)="save()">Submit</ion-button>
+</ion-content>

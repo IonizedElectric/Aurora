@@ -31,7 +31,12 @@ export class AppComponent {
       title: 'History',
       url: '/history',
       icon: 'calendar'
-    },
+      },
+      {
+          title: 'Submit a suggestion',
+          url: '/submit',
+          icon: 'send'
+      },
     {
       title: 'Stats',
       url: '/stats',
