@@ -6,6 +6,7 @@ import { from, defer } from 'rxjs';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AlertController } from '@ionic/angular';
 import { Chart } from 'chart.js';
+import { HttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
@@ -14,14 +15,16 @@ import { Chart } from 'chart.js';
 })
 
 export class HomePage implements OnInit {
-    @ViewChild("lineCanvas", { static: false }) lineCanvas: ElementRef;
+    @ViewChild('lineCanvas', { static: false }) barChart;
     private lineChart: Chart;
-    constructor(private http: HTTP, public alertController: AlertController, private nativeStorage: NativeStorage) { }
+    constructor(private http: HttpClient, public alertController: AlertController, private nativeStorage: NativeStorage) { }
     happy: number;
     angry: number;
     stressy: number;
     energy: number;
     worry: number;
+    bars: any;
+    colorArray: any;
     ngOnInit() {
         this.happy = 50;
         this.angry = 50;
@@ -68,7 +71,39 @@ export class HomePage implements OnInit {
             }
         });*/
     }
-    
+    ionViewDidEnter() {
+        this.createLineChart();
+    }
+    createLineChart() {
+        this.bars = new Chart(this.barChart.nativeElement, {
+            type: 'line',
+            data: {
+                labels: ['Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Yesterday', 'Today'],
+                datasets: [{
+                    label: 'Happiness',
+                    data: [25, 38, 50, 69, 69, 75, 90, 3],
+                    backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
+                    borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
+                    borderWidth: 1
+                }, {
+                    label: 'Anger',
+                    data: [15, 28, 45, 49, 39, 25, 3, 90],
+                    backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
+                    borderColor: '#dd1144',// array should have same number of elements as number of dataset
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
     data: Array<number>;
     nowDate: Date;
     async presentAlertConfirm(header1,message) {
@@ -118,9 +153,12 @@ export class HomePage implements OnInit {
         this.data = [this.happy, this.angry, this.stressy, this.energy, this.worry];
         try {
             
-            return defer(() => from(this.http.get('http://86.189.204.124:8080/save', this.data, '')))
-                .pipe(
-                    map(resp => { return resp }));
+            this.http.post('https://localhost:8080/addtolog', {
+                content: 'hello',
+                submittedBy: '8057'
+            }).subscribe((response) => {
+                console.log(response);
+            });
         }
         catch (error) {
             this.presentAlert("Networking Error - 0x01", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
