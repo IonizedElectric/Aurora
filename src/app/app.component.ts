@@ -27,20 +27,15 @@ export class AppComponent {
       url: '/for-you',
       icon: 'happy'
     },
-    {
-      title: 'History',
-      url: '/history',
-      icon: 'calendar'
-      },
       {
           title: 'Submit a suggestion',
           url: '/submit',
           icon: 'send'
       },
     {
-      title: 'Stats',
-      url: '/stats',
-      icon: 'stats'
+      title: 'History',
+      url: '/history',
+        icon: 'stats-chart'
     },
     {
       title: 'Settings',

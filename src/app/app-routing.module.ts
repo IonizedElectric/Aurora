@@ -16,14 +16,6 @@ const routes: Routes = [
     loadChildren: () => import('./today/today.module').then( m => m.TodayPageModule)
   },
   {
-    path: 'history',
-    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
-  },
-  {
-    path: 'stats',
-    loadChildren: () => import('./stats/stats.module').then( m => m.StatsPageModule)
-  },
-  {
     path: 'for-you',
     loadChildren: () => import('./for-you/for-you.module').then( m => m.ForYouPageModule)
   },
@@ -49,6 +41,10 @@ const routes: Routes = [
   },  {
     path: 'submit',
     loadChildren: () => import('./submit/submit.module').then( m => m.SubmitPageModule)
+  },
+  {
+    path: 'history',
+    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
   }
 
 ];

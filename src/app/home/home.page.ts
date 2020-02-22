@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class HomePage implements OnInit {
-    @ViewChild('lineCanvas', { static: false }) barChart;
+    @ViewChild('lineCanvas') barChart;
     private lineChart: Chart;
     constructor(private http: HttpClient, public alertController: AlertController, private nativeStorage: NativeStorage) { }
     happy: number;
