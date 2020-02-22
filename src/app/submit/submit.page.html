@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+
     
         <h3>Suggestion type</h3>
             <ion-select #Select multiple="true" cancelText="Cancel" okText="Confirm" (ionChange)="logLog(Select.value)">
@@ -18,6 +19,18 @@
               <ion-select-option  value="worry">Worry</ion-select-option>
             </ion-select>
     
+
+<!--
+    <h3>Suggestion type</h3>
+        <IonSelect multiple={true} cancelText="Nah" okText="Okay!">
+          <IonSelectOption value="happiness">Happiness</IonSelectOption>
+          <IonSelectOption value="anger">Anger</IonSelectOption>
+          <IonSelectOption value="stress">Stress</IonSelectOption>
+          <IonSelectOption value="energy">Energy</IonSelectOption>
+          <IonSelectOption value="worry">Worry</IonSelectOption>
+        </IonSelect>
+-->
+    <br />
     <h3>Title</h3>
     <ion-input placeholder="Sum up your suggestion in one word" [(ngModel)]="title"></ion-input>
     <br />
