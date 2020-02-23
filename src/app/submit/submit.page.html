@@ -8,6 +8,18 @@
 </ion-header>
 
 <ion-content>
+
+    
+        <h3>Suggestion type</h3>
+            <ion-select #Select multiple="true" cancelText="Cancel" okText="Confirm" (ionChange)="logLog(Select.value)">
+              <ion-select-option  value="happy">Sadness</ion-select-option>
+              <ion-select-option  value="angry">Anger</ion-select-option>
+              <ion-select-option  value="stressy">Stress</ion-select-option>
+              <ion-select-option  value="energy">Energy</ion-select-option>
+              <ion-select-option  value="worry">Worry</ion-select-option>
+            </ion-select>
+    
+
 <!--
     <h3>Suggestion type</h3>
         <IonSelect multiple={true} cancelText="Nah" okText="Okay!">

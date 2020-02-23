@@ -10,6 +10,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AlertController } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -18,6 +22,11 @@ import { HttpClientModule } from '@angular/common/http';
       HttpClientModule,
       IonicModule.forRoot(),
       AppRoutingModule,
+      CalendarModule.forRoot({
+          provide: DateAdapter,
+          useFactory: adapterFactory
+      }),
+      BrowserAnimationsModule
   ],
   providers: [
     StatusBar,
