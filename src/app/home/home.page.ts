@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import { HTTP } from '@ionic-native/http/ngx';
 import { map } from 'rxjs/operators';
 import { promise } from 'protractor';
 import { from, defer } from 'rxjs';
@@ -17,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage implements OnInit {
     @ViewChild('lineCanvas') barChart;
     private lineChart: Chart;
-    constructor(private http: HttpClient, public alertController: AlertController, private nativeStorage: NativeStorage) { }
+    constructor(public alertController: AlertController, private nativeStorage: NativeStorage) { }
     happy: number;
     angry: number;
     stressy: number;
@@ -107,23 +106,7 @@ export class HomePage implements OnInit {
 
         await alert.present();
     }
-    save() {
-        //this.presentAlertConfirm("Something is <b>very</b> wrong - 0x2", "We failed to save locally. The best thing you can do right now is <s>cry</s>restart the app.");
-
-        //this.presentAlert("Networking Error",  "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
-        console.log("Attempting save");
-        this.data = [this.happy, this.angry, this.stressy, this.energy, this.worry];
-        try {
-            
-            this.http.post('https://localhost:8080/addtolog', {
-                content: 'hello',
-                submittedBy: '8057'
-            }).subscribe((response) => {
-                console.log(response);
-            });
-        }
-        catch (error) {
-            this.presentAlert("Networking Error - 0x01", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
+    save() {this.presentAlert("Networking Error - 0x01", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
 
             try {
                 this.nowDate = new Date();
@@ -143,9 +126,8 @@ export class HomePage implements OnInit {
                 "Energy: " + this.energy.toString() + "\n" +
                 "Worry: " + this.worry.toString());
             //this.nativeStorage.setItem(new Date(), {property: values, anotherProperty: 'anotherValue'}).then(() => console.log('Stored item!'),error => console.error('Error storing item', error));
-        */};
+     */};
         
 
 
-    }
 }

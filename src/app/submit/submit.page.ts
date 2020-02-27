@@ -12,13 +12,14 @@ export class SubmitPage implements OnInit {
 
   ngOnInit() {
   }
-    posterID = 1;
+    posterID = 4;
     list: Array<string>;
     happy: number;
     angry: number;
     stressy: number;
     energy: number;
     worry: number;
+    temp: string;
     async presentAlert(header1, message) {
         const alert = await this.alertController.create({
             header: header1,
@@ -38,7 +39,8 @@ export class SubmitPage implements OnInit {
     title: string;
     sub: string;
     content: string;
-    save(value) {
+    save() {
+        console.log(this.list);
         if (this.title == null || this.title == "") {
             this.presentAlert("Uncompleted fields", "Please complete the Title field!");
         }
@@ -80,7 +82,10 @@ export class SubmitPage implements OnInit {
         }
     }
     makePost() {
-        return this.http.get('http://aurora-django.herokuapp.com/posts/make/' + this.title + `/` + (this.posterID).toString() + '/' + this.sub + '/' + this.content + '/' + this.happy.toString() + '/' + this.angry.toString() + `/` + this.stressy.toString() + `/` + this.energy.toString()+'/'+this.worry.toString);
+
+        this.temp = ('http://aurora-django.herokuapp.com/posts/make/' + encodeURIComponent(this.title) + `/` + (this.posterID).toString() + '/' + encodeURIComponent(this.sub) + '/' + encodeURIComponent(this.content) + '/' + this.happy.toString() + '/' + this.angry.toString() + `/` + this.stressy.toString() + `/` + this.energy.toString() + '/' + this.worry.toString());
+        console.log(this.temp);
+        console.log(this.http.get(this.temp));
     }
     logLog(value) {
         this.list = value;
