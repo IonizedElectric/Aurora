@@ -50,6 +50,15 @@ export class SubmitPage implements OnInit {
         else if (this.content == null || this.content == "") {
             this.presentAlert("Uncompleted fields", "Please complete the Content field!");
         }
+        else if (this.title.indexOf("\\")) {
+            this.presentAlert("Illegal characters","'\\' is disallowed.");
+        }
+        else if (this.sub == null || this.sub == "") {
+            this.presentAlert("Uncompleted fields", "Please complete the Subtitle field!");
+        }
+        else if (this.content == null || this.content == "") {
+            this.presentAlert("Uncompleted fields", "Please complete the Content field!");
+        }
         else {
             this.presentAlert("Well done!", "Your suggestion has (not) been submitted.");
             if (this.list.indexOf("happy") >= 0) {
