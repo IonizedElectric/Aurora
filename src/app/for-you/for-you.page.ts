@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-for-you',
   templateUrl: './for-you.page.html',
@@ -7,9 +7,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForYouPage implements OnInit {
 
-  constructor() { }
+    constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        var example = "title<br>sub<br>cont<br>5<br>32<br>1<br>1<br>1<br>1<br>admin<hr>title2<br>sub2<br>con2t<br>5<br>32<br>1<br>1<br>1<br>1<br>admin2<hr>";
+        console.log(example);
+        var ex2 = example.split("<hr>");
+        ex2.pop()
+        console.log("Ex2:", ex2);
+        ex3 = []
+        for (var i = 0; i < ex2.length; i++) {
+            ex3.push(ex2[i].split("<br>"));
+            
 
+        }
+        console.log("Ex3: ", ex3);/*
+        var xe1 = [];
+        var xe2 = [];
+        var xe3 = [];
+        for (var i = 0; i < xe1.length; i++) {
+            xe3.push()
+        }*/
+  }/*get it.
+    this.http.get<any>(temp).toPromise()
+    .then(r => console.log('response', r)).catch(error => console.error(error));*/
+    
 }

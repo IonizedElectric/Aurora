@@ -8,5 +8,22 @@
 </ion-header>
 
 <ion-content>
-
+    <div *ngFor="let x of ex3; let i = index">
+        <div *ngFor="let y of ex3[i]">
+            <ion-card>
+                <ion-card-header>
+                    <!--<template [ngIf]="brag">
+        <div>
+            <h2>I'm awesome!</h2>
+        </div>
+    </template>-->
+                    <ion-card-subtitle><!--<div [ngIf]="y[]"></div>--></ion-card-subtitle>
+                    <ion-card-title>{{y[0]}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    {{y[2]}}
+                </ion-card-content>
+            </ion-card>    
+        </div>
+    </div>
 </ion-content>
