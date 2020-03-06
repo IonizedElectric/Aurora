@@ -6,6 +6,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AlertController } from '@ionic/angular';
 import { Chart } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
+import { formatDate } from '@angular/common';
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
@@ -30,16 +31,22 @@ export class HomePage implements OnInit {
         this.stressy = 50;
         this.energy = 50;
         this.worry = 50;
- 
+        //var date = (new Date(), 'yyyy-MM-dd');
+        //console.log(formatDate(d.getDate(), "dd/MMM/y", "en_GB"));
+        console.log(Date());
+        var temp = new Date();
+        console.log(temp);
+        console.log(formatDate(temp.getDate(),"full","en_GB"));
     }
     ionViewDidEnter() {
         this.createLineChart();
     }
     createLineChart() {
+        var d = new Date(Date.now());
         this.bars = new Chart(this.barChart.nativeElement, {
             type: 'line',
             data: {
-                labels: ['Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Tuesday', 'Yesterday', 'Today'],
+                labels: [formatDate(new Date(d.getDate() - 6), "EEEE", "en_GB"), formatDate(d.getDate() - 6, "EEEE", "en_GB"), formatDate(d.getDate() - 5, "EEEE", "en_GB"), formatDate(d.getDate() - 4, "EEEE", "en_GB"), formatDate(d.getDate() - 3, "EEEE", "en_GB"), formatDate(d.getDate() - 2, "EEEE", "en_GB"), 'Yesterday', 'Today'],
                 datasets: [{
                     label: 'Happiness',
                     data: [25, 38, 50, 69, null, 75, 90, 3],

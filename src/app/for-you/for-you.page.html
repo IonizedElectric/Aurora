@@ -1,4 +1,4 @@
-<ion-header>
+﻿<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -8,22 +8,20 @@
 </ion-header>
 
 <ion-content>
-    <div *ngFor="let x of ex3; let i = index">
-        <div *ngFor="let y of ex3[i]">
-            <ion-card>
-                <ion-card-header>
-                    <!--<template [ngIf]="brag">
-        <div>
-            <h2>I'm awesome!</h2>
-        </div>
-    </template>-->
-                    <ion-card-subtitle><!--<div [ngIf]="y[]"></div>--></ion-card-subtitle>
-                    <ion-card-title>{{y[0]}}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    {{y[2]}}
-                </ion-card-content>
-            </ion-card>    
-        </div>
+    <div>
+        <ion-card *ngFor="let x of ex3; let i = index">
+            <ion-card-header>
+                <!--<template *ngIf="brag">
+                    <div>
+                        <h2>I'm awesome!</h2>
+                    </div>
+                </template>-->
+                <ion-card-subtitle><div style="display: inline" *ngIf="ex3[i][5] == base">😀</div><div style="display: inline" *ngIf="ex3[i][6] == base">😡</div><div style="display: inline" *ngIf="ex3[i][7] == base">😰</div><div style="display: inline" *ngIf="ex3[i][8] == base">⚡</div><div style="display: inline" *ngIf="ex3[i][9] == base">😟</div><br />{{ex3[i][1]}}</ion-card-subtitle>
+                <ion-card-title>{{ex3[i][0]}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                {{ex3[i][2]}}
+            </ion-card-content>
+        </ion-card>
     </div>
 </ion-content>
