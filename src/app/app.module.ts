@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       BrowserModule,
       HttpClientModule,
       IonicModule.forRoot(),
+      IonicStorageModule.forRoot(),
       AppRoutingModule,
       CalendarModule.forRoot({
           provide: DateAdapter,

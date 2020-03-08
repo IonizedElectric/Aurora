@@ -107,7 +107,7 @@ export class SubmitPage implements OnInit {
 
         console.log("Temp3:");
         console.log(temp3);
-        this.presentAlert("Well done!", "Your suggestion has (not) been submitted.");
+        this.presentAlert("Well done!", "Your suggestion has been submitted.");
         //console.log(this.res.error.error.text);
     }
     logLog(value) {
