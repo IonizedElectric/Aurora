@@ -18,11 +18,6 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'Your Day',
-      url: '/today',
-      icon: 'today'
-    },
-    {
       title: 'For You',
       url: '/for-you',
       icon: 'happy'

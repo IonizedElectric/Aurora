@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content>
-    <div>
-        <ion-card *ngFor="let x of ex3; let i = index">
+    <div *ngIf="!this.detail">
+        <ion-card *ngFor="let x of ex3; let i = index" (click)="open(i)">
             <ion-card-header>
                 <!--<template *ngIf="brag">
                     <div>
@@ -22,6 +22,13 @@
             <ion-card-content>
                 {{ex3[i][2]}}
             </ion-card-content>
+            <div style="display: inline" align="left"><div style="display: inline" *ngIf="ex3[i][11] == 'up'"><ion-icon name="thumbs-up"></ion-icon></div><div style="display: inline" *ngIf="ex3[i][11] != 'up'"><ion-icon name="thumbs-up-outline" (click)="voteUp(i)"></ion-icon></div>{{ex3[i][4]}}<div style="display: inline" *ngIf="ex3[i][11] == 'down'"><ion-icon name="thumbs-down"></ion-icon></div><div style="display: inline" *ngIf="ex3[i][11] != 'down'"><ion-icon name="thumbs-down-outline" (click)="this.voteDown(i)"></ion-icon></div></div><div style="display: inline" align="right">By: {{ex3[i][10]}}</div>
         </ion-card>
+    </div>
+    <div *ngIf="this.detail">
+        <h2>{{this.title}}</h2>
+        <h4>{{this.sub}}</h4>
+        <div style="width: 100%"><div style="display: inline" align="left">By: {{this.poster}}</div><div style="display: inline" align="right"><div style="display: inline" *ngIf="this.up"><ion-icon name="thumbs-up"></ion-icon></div><div style="display: inline" *ngIf="!this.up"><ion-icon name="thumbs-up-outline" (click)="this.voteDetailUp()"></ion-icon></div>{{this.votes}}<div style="display: inline" *ngIf="this.down"><ion-icon name="thumbs-down"></ion-icon></div><div style="display: inline" *ngIf="!this.down"><ion-icon name="thumbs-down-outline" (click)="this.voteDetailDown()"></ion-icon></div></div></div>
+        {{this.cont}}
     </div>
 </ion-content>
