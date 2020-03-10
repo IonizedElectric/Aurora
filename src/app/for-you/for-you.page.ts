@@ -27,15 +27,14 @@ export class ForYouPage implements OnInit {
     this.http.get<any>(temp).toPromise()
     .then(r => console.log('response', r)).catch(error => console.error(error));*/
     get(r) {
-        this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).toPromise()
-            .then(r => this.parse(r));
+        this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parse(data));
     }
     getOpen(r) {
-        this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).toPromise()
-            .then(r => this.parseOpen(r))
+        this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parseOpen(data));
     }
     parseOpen(r) {
         this.parse(r);
+        //this.i++;
         this.open(this.i);
     }
     cont: any;
@@ -61,10 +60,25 @@ export class ForYouPage implements OnInit {
         //var ex3 = []
         for (var i = 0; i < ex2.length; i++) {
             this.ex3.push(ex2[i].split("<br>"));
-
+            if (this.ex3[i][2].length > 200) {
+                this.ex3[i].push(this.ex3[i][2].substring(0, 200) + "...");
+            }
+            else {
+                this.ex3[i].push(this.ex3[i][2]);
+            }
 
         }
         console.log("Ex3: ", this.ex3);
+        this.ex3.reverse()
+    }
+    doRefresh(event) {
+        console.log("refresh");
+        this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.rfrsh(event, data));
+    }
+    rfrsh(evt, data) {
+        this.detail = false;
+        this.parse(data);
+        evt.target.complete();
     }
     open(i) {
         this.i = i;
@@ -90,28 +104,27 @@ export class ForYouPage implements OnInit {
         this.poster = this.ex3[i][10];
         if (this.ex3[i][11] == "up") {
             this.up = true;
+            this.down = false;
         }
         if (this.ex3[i][11] == "down") {
             this.down = true;
+            this.up = false;
         }
         this.votes = this.ex3[i][4];
     }
     voteUp(i) {
-        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[i][3] + "/vote" + "/up/"+global.u_id, { responseType: 'text' }).toPromise()
-            .then(r => this.get(r));
+        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[i][3] + "/vote" + "/up/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.get(data));
     }
     voteDown(i) {
-        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[i][3] + "/vote" + "/down/" + global.u_id, { responseType: 'text' }).toPromise()
-            .then(r => this.get(r));
+        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[i][3] + "/vote" + "/down/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.get(data));
     }
     voteDetailDown() {
-        console.log("voteUp");
-        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[this.i][3] + "/vote" + "/down/" + global.u_id, { responseType: 'text' }).toPromise()
-            .then(r => this.getOpen(r));
+        console.log("voteDown");
+
+        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[this.i][3] + "/vote" + "/down/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.getOpen(data));
     }
     voteDetailUp() {
-        console.log("voteDown");
-        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[this.i][3] + "/vote" + "/up/" + global.u_id, { responseType: 'text' }).toPromise()
-            .then(r => this.getOpen(r));
+        console.log("voteUp");
+        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[this.i][3] + "/vote" + "/up/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.getOpen(data));
     }
 }

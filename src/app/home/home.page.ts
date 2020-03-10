@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { map } from 'rxjs/operators';
 import { promise } from 'protractor';
 import { from, defer } from 'rxjs';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AlertController } from '@ionic/angular';
 import { Chart, TimeUnit } from 'chart.js';
 import { formatDate } from '@angular/common';
@@ -17,7 +16,7 @@ import { Storage } from '@ionic/storage';
 export class HomePage implements OnInit {
     @ViewChild('lineCanvas') barChart;
     private lineChart: Chart;
-    constructor(public alertController: AlertController, private nativeStorage: NativeStorage, private storage: Storage) { }
+    constructor(public alertController: AlertController, private storage: Storage) { }
     happy: number;
     angry: number;
     stressy: number;
@@ -151,7 +150,7 @@ export class HomePage implements OnInit {
             console.log(data);
             this.storage.set(formatDate(Date.now(),"YYYY-MM-DDTHH:mm:ss.sssZ","en_GB"),data)
                 .then(
-                    () => this.nativeStorage.keys().then(r => console.log(r)),
+                    () => console.log("Saved"),
                     error => console.error('Error storing item', error)
                 );
         }

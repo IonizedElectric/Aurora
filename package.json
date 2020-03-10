@@ -46,7 +46,7 @@
     "date-fns": "^2.9.0",
     "firebase": "^7.8.2",
     "ion2-calendar": "^3.0.0-rc.0",
-    "ionic": "^5.4.15",
+    "ionic": "^5.4.16",
     "moment": "^2.24.0",
     "ng2-charts": "^2.3.0",
     "react-native": "^0.61.5",
