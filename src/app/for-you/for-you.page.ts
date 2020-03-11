@@ -30,12 +30,22 @@ export class ForYouPage implements OnInit {
         this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parse(data));
     }
     getOpen(r) {
+        console.log("GetOpen");
         this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parseOpen(data));
     }
     parseOpen(r) {
         this.parse(r);
-        //this.i++;
-        this.open(this.i);
+        console.log("ParseOpen");
+        console.log(this.i);
+        this.lookFor();
+    }
+    lookFor() {
+        for (var i = 0; i < this.ex3.length; i++) {
+            if (this.ex3[i][3] == this.tempI) {
+                this.open(i);
+                return;
+            }
+        }
     }
     cont: any;
     title: any;
@@ -58,13 +68,13 @@ export class ForYouPage implements OnInit {
         ex2.pop()
         console.log("Ex2:", ex2);
         //var ex3 = []
-        for (var i = 0; i < ex2.length; i++) {
-            this.ex3.push(ex2[i].split("<br>"));
-            if (this.ex3[i][2].length > 200) {
-                this.ex3[i].push(this.ex3[i][2].substring(0, 200) + "...");
+        for (var it = 0; it < ex2.length; it++) {
+            this.ex3.push(ex2[it].split("<br>"));
+            if (this.ex3[it][2].length > 200) {
+                this.ex3[it].push(this.ex3[it][2].substring(0, 200) + "...");
             }
             else {
-                this.ex3[i].push(this.ex3[i][2]);
+                this.ex3[it].push(this.ex3[it][2]);
             }
 
         }
@@ -112,6 +122,7 @@ export class ForYouPage implements OnInit {
         }
         this.votes = this.ex3[i][4];
     }
+    tempI: number;
     voteUp(i) {
         this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[i][3] + "/vote" + "/up/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.get(data));
     }
@@ -120,11 +131,14 @@ export class ForYouPage implements OnInit {
     }
     voteDetailDown() {
         console.log("voteDown");
-
+        console.log(this.i);
+        this.tempI=this.ex3[this.i][3]
         this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[this.i][3] + "/vote" + "/down/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.getOpen(data));
     }
     voteDetailUp() {
         console.log("voteUp");
+        console.log(this.i);
+        this.tempI = this.ex3[this.i][3]
         this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[this.i][3] + "/vote" + "/up/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.getOpen(data));
     }
 }

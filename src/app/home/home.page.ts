@@ -24,6 +24,12 @@ export class HomePage implements OnInit {
     worry: number;
     bars: any;
     colorArray: any;
+    happiness: any;
+    anger: any;
+    stress: any;
+    energetic: any;
+    worrier: any;
+
     ngOnInit() {
         this.unit = "day";
         this.happy = 50;
@@ -33,19 +39,25 @@ export class HomePage implements OnInit {
         this.worry = 50;
         //var date = (new Date(), 'yyyy-MM-dd');
         //console.log(formatDate(d.getDate(), "dd/MMM/y", "en_GB"));
-        console.log(Date());
+        /*console.log(Date());
         var temp = new Date();
         var temp2 = new Date();
         temp2.setDate(temp.getDate() - 5);
         console.log(temp);
         console.log(formatDate(temp.getDate(), "full", "en_GB"));
-        console.log(temp2);
+        console.log(temp2);*/
     }
     ionViewDidEnter() {
+        this.define();
+        this.keyParse();
         this.createLineChart();
     }
-    getLastDays() {
-        
+    define() {
+        this.happiness = [];
+        this.anger = [];
+        this.stress = [];
+        this.energetic = [];
+        this.worrier = [];
     }
     createLineChart() {
 
@@ -146,9 +158,9 @@ export class HomePage implements OnInit {
     save() {//this.presentAlert("Networking Error - 0x01", "I think you're offline. If you aren't then my server is down. If this issue persists, <a href=\"mailto:schwarz.abbas@gmail.com\">tell me</a>. This app will now proceed to attempt to save to local-storage.");
 
         try {
-            var data = [this.happy, this.angry, this.stressy, this.energy, this.worry]
-            console.log(data);
-            this.storage.set(formatDate(Date.now(),"YYYY-MM-DDTHH:mm:ss.sssZ","en_GB"),data)
+            var data2 = [this.happy, this.angry, this.stressy, this.energy, this.worry]
+            console.log(data2);
+            this.storage.set("data", {date: Date.now(), data: data2})
                 .then(
                     () => console.log("Saved"),
                     error => console.error('Error storing item', error)
@@ -166,20 +178,8 @@ export class HomePage implements OnInit {
             //this.nativeStorage.setItem(new Date(), {property: values, anotherProperty: 'anotherValue'}).then(() => console.log('Stored item!'),error => console.error('Error storing item', error));
      */};
     keyParse() {
-        var dates = [];
-        var now;
-        now = Date();
-        dates.push(formatDate(new Date().setDate(now.getDate() - 7), "YYYY-MM-DD", "en_GB"));
-        dates.push(formatDate(new Date().setDate(now.getDate() - 6), "YYYY-MM-DD", "en_GB"));
-        dates.push(formatDate(new Date().setDate(now.getDate() - 5), "YYYY-MM-DD", "en_GB"));
-        dates.push(formatDate(new Date().setDate(now.getDate() - 5), "YYYY-MM-DD", "en_GB"));
-        dates.push(formatDate(new Date().setDate(now.getDate() - 3), "YYYY-MM-DD", "en_GB"));
-        dates.push(formatDate(new Date().setDate(now.getDate() - 2), "YYYY-MM-DD", "en_GB"));
-        dates.push(formatDate(new Date().setDate(now.getDate() - 1), "YYYY-MM-DD", "en_GB"));
-        dates.push(formatDate(new Date().setDate(now.getDate() - 0), "YYYY-MM-DD", "en_GB"));
-
         this.storage.forEach((value, key, index) => {
-            if (this.checkSubstrings(dates, key)) {
+            if (this.checkSubstrings(value)) {
                 this.happiness.push({ x: key, y: value[0] });
                 this.anger.push({ x: key, y: value[1] });
                 this.stress.push({ x: key, y: value[2] });
@@ -188,22 +188,20 @@ export class HomePage implements OnInit {
             }
         })
     }
-    happiness: any;
-    anger: any;
-    stress: any;
-    energetic: any;
-    worrier: any;
 
-    checkSubstrings(list, string) {
-        for (var i = 0; i < list.length; i++) {
-            if (string.includes(list[i])) {
+    checkSubstrings(val) {
+        var now;
+        now = new Date();
+        var ago = new Date().setDate(now.getDate() - 7);
+
+            if (val.date > ago) {
                 return true;
             }
             else {
                 return false;
             }
 
-        }
+        
     }
 
 }
