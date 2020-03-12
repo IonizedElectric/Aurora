@@ -24,11 +24,11 @@ export class HomePage implements OnInit {
     worry: number;
     bars: any;
     colorArray: any;
-    happiness: any;
-    anger: any;
-    stress: any;
-    energetic: any;
-    worrier: any;
+    happiness: Array<any>;
+    anger: Array<any>;
+    stress: Array<any>;
+    energetic: Array<any>;
+    worrier: Array<any>;
 
     ngOnInit() {
         this.unit = "day";
@@ -49,15 +49,15 @@ export class HomePage implements OnInit {
     }
     ionViewDidEnter() {
         this.define();
-        this.keyParse();
+        //this.keyParse();
         this.createLineChart();
     }
     define() {
-        this.happiness = [];
-        this.anger = [];
-        this.stress = [];
-        this.energetic = [];
-        this.worrier = [];
+        this.happiness = [{ x: Date.now(), y: 35 }];
+        this.anger = [{ x: Date.now(), y: 35 }];
+        this.stress = [{ x: Date.now(), y: 35 }];
+        this.energetic = [{ x: Date.now(), y: 35 }];
+        this.worrier = [{ x: Date.now(), y: 35 }];
     }
     createLineChart() {
 

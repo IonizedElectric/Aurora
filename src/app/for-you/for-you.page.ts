@@ -8,14 +8,19 @@ import { global } from '../global';
 })
 export class ForYouPage implements OnInit {
 
+
     constructor(private http: HttpClient) { }
     detail: boolean;
+    searchTerm: any;
     ngOnInit() {
+
+        this.search = false;
         global.u_id = 4;
         this.detail = false;
         //var example = "title<br>sub<br>cont<br>5<br>32<br>1<br>1<br>1<br>1<br>1<br>admin<hr>title2<br>sub2<br>con2t<br>5<br>32<br>1<br>1<br>1<br>1<br>1<br>admin2<hr>";
         this.get(null);
         console.log("Resp: " + this.resp);
+        
         /*
         var xe1 = [];
         var xe2 = [];
@@ -25,7 +30,10 @@ export class ForYouPage implements OnInit {
         }*/
     }/*get it.
     this.http.get<any>(temp).toPromise()
-    .then(r => console.log('response', r)).catch(error => console.error(error));*/
+*/
+    getBetter() {
+        this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parse(data));
+    }
     get(r) {
         this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parse(data));
     }
@@ -46,6 +54,25 @@ export class ForYouPage implements OnInit {
                 return;
             }
         }
+    }
+    index: any;
+    lookForIndex() {
+        for (var i = 0; i < this.ex3.length; i++) {
+            if (this.ex3[i][3] == this.tempI) {
+                this.index = i;
+                return;
+            }
+        }
+    }
+    ex31: any;
+    search: boolean;
+    openSearch() {
+        this.detail = false;
+        this.search = true;
+
+    }
+    searchFor() {
+
     }
     cont: any;
     title: any;
@@ -121,6 +148,12 @@ export class ForYouPage implements OnInit {
             this.up = false;
         }
         this.votes = this.ex3[i][4];
+    }
+    temp3: any;
+    openIndex(i) {
+        this.tempI = i;
+        this.lookForIndex();
+        this.open(i);
     }
     tempI: number;
     voteUp(i) {
