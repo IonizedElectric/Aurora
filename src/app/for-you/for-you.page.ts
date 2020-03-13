@@ -13,26 +13,23 @@ export class ForYouPage implements OnInit {
     detail: boolean;
     searchTerm: any;
     ngOnInit() {
-
+        this.searched = false;
         this.search = false;
         global.u_id = 4;
+        global.settings.length = 50;
         this.detail = false;
-        //var example = "title<br>sub<br>cont<br>5<br>32<br>1<br>1<br>1<br>1<br>1<br>admin<hr>title2<br>sub2<br>con2t<br>5<br>32<br>1<br>1<br>1<br>1<br>1<br>admin2<hr>";
         this.get(null);
         console.log("Resp: " + this.resp);
-        
-        /*
-        var xe1 = [];
-        var xe2 = [];
-        var xe3 = [];
-        for (var i = 0; i < xe1.length; i++) {
-            xe3.push()
-        }*/
-    }/*get it.
-    this.http.get<any>(temp).toPromise()
-*/
+    }
+    parsedValues: any;
     getBetter() {
-        this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parse(data));
+        this.parsedValues = [0,0,0,0,0];
+        for (var i = 0; i < this.value.length; i++) {
+            if (this.value[i]) {
+                this.parsedValues[i] = 1;
+            }
+        }
+        this.http.get("http://aurora-django.herokuapp.com/posts/betterIndex/" + this.parsedValues[0].toString() + "/" + this.parsedValues[1].toString() + "/" + this.parsedValues[2].toString() + "/" + this.parsedValues[3].toString() + "/" + this.parsedValues[4].toString() + "/0/" + global.settings.length.toString()+"/"+ global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parseSearch(data));
     }
     get(r) {
         this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parse(data));
@@ -41,11 +38,24 @@ export class ForYouPage implements OnInit {
         console.log("GetOpen");
         this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parseOpen(data));
     }
+    getOpenSearched(r) {
+        this.parsedValues = [0, 0, 0, 0, 0];
+        for (var i = 0; i < this.value.length; i++) {
+            if (this.value[i]) {
+                this.parsedValues = 1;
+            }
+        }
+        this.http.get("http://aurora-django.herokuapp.com/posts/betterIndex/" + this.parsedValues[0].toString() + this.parsedValues[1].toString() + this.parsedValues[2].toString() + this.parsedValues[3].toString() + this.parsedValues[4].toString() + "0" + global.settings.length.toString() + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.parseOpenSearch(data));
+    }
     parseOpen(r) {
         this.parse(r);
         console.log("ParseOpen");
         console.log(this.i);
         this.lookFor();
+    }
+    parseOpenSearch(r) {
+        this.parseSearch(r);
+        this.openSearched(this.tempI);
     }
     lookFor() {
         for (var i = 0; i < this.ex3.length; i++) {
@@ -64,7 +74,6 @@ export class ForYouPage implements OnInit {
             }
         }
     }
-    ex31: any;
     search: boolean;
     openSearch() {
         this.detail = false;
@@ -72,7 +81,7 @@ export class ForYouPage implements OnInit {
 
     }
     searchFor() {
-
+        this.getBetter();
     }
     cont: any;
     title: any;
@@ -87,6 +96,18 @@ export class ForYouPage implements OnInit {
     up: boolean;
     down: boolean;
     votes: number;
+    cont2: any;
+    title2: any;
+    sub2: any;
+    poster2: any;
+    happy2: boolean;
+    angry2: boolean;
+    stressy2: boolean;
+    energy2: boolean;
+    worry2: boolean;
+    up2: boolean;
+    down2: boolean;
+    votes2: number;
     public ex3 = [];
     public resp = "";
     public base = "True";
@@ -108,6 +129,28 @@ export class ForYouPage implements OnInit {
         console.log("Ex3: ", this.ex3);
         this.ex3.reverse()
     }
+    parseSearch(text) {
+        var ex2 = text.split("<hr>");
+        ex2.pop()
+        console.log("Ex2:", ex2);
+        this.ex32 = []
+        for (var it = 0; it < ex2.length; it++) {
+            this.ex32.push(ex2[it].split("<br>"));
+            if (this.ex32[it][2].length > 200) {
+                this.ex32[it].push(this.ex32[it][2].substring(0, 200) + "...");
+            }
+            else {
+                this.ex32[it].push(this.ex3[it][2]);
+            }
+
+        }
+        console.log("Ex3: ", this.ex3);
+        this.ex32.reverse()
+        this.searched = true;
+        console.log("This.searched: " + this.searched);
+    }
+    searched: boolean;
+    ex32: any;
     doRefresh(event) {
         console.log("refresh");
         this.http.get("http://aurora-django.herokuapp.com/posts/index/" + global.u_id, { responseType: 'text' }).subscribe((data: any) => this.rfrsh(event, data));
@@ -149,6 +192,40 @@ export class ForYouPage implements OnInit {
         }
         this.votes = this.ex3[i][4];
     }
+    i2: any;
+    searchDetail: boolean;
+    openSearched(i) {
+        this.i2 = i;
+        this.searchDetail = true;
+        if (this.ex32[i][5] = "1") {
+            this.happy2 = true;
+        }
+        if (this.ex32[i][6] = "1") {
+            this.angry2 = true;
+        }
+        if (this.ex32[i][7] = "1") {
+            this.stressy2 = true;
+        }
+        if (this.ex32[i][8] = "1") {
+            this.energy2 = true;
+        }
+        if (this.ex32[i][9] = "1") {
+            this.worry2 = true;
+        }
+        this.title2 = this.ex32[i][0];
+        this.sub2 = this.ex32[i][1];
+        this.cont2 = this.ex32[i][2];
+        this.poster2 = this.ex32[i][10];
+        if (this.ex32[i][11] == "up") {
+            this.up2 = true;
+            this.down2 = false;
+        }
+        if (this.ex32[i][11] == "down") {
+            this.down2 = true;
+            this.up2 = false;
+        }
+        this.votes = this.ex3[i][4];
+    }
     temp3: any;
     openIndex(i) {
         this.tempI = i;
@@ -173,5 +250,21 @@ export class ForYouPage implements OnInit {
         console.log(this.i);
         this.tempI = this.ex3[this.i][3]
         this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[this.i][3] + "/vote" + "/up/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.getOpen(data));
+    }
+    voteSearchDetailDown() {
+        console.log("voteDown");
+        console.log(this.i);
+        this.tempI = this.ex3[this.i][3]
+        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex3[this.i][3] + "/vote" + "/down/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.getOpenSearched(data));
+    }
+    voteSearchDetailUp() {
+        console.log("voteUp");
+        console.log(this.i2);
+        this.tempI = this.ex32[this.i2][3]
+        this.http.get("http://aurora-django.herokuapp.com/posts/" + this.ex32[this.i2][3] + "/vote" + "/up/" + global.u_id.toString(), { responseType: 'text' }).subscribe((data: any) => this.getOpenSearched(data));
+    }
+    value: any;
+    logLog(value) {
+        this.value = value;
     }
 }
