@@ -33,9 +33,9 @@ export class AppComponent {
         icon: 'stats-chart'
     },
     {
-      title: 'Settings',
-      url: '/settings',
-      icon: 'settings'
+      title: 'About',
+      url: '/about',
+      icon: 'help'
     }
   ];
 

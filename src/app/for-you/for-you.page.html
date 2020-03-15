@@ -14,7 +14,7 @@
     </ion-refresher>
 
     <div *ngIf="!this.detail && !this.search">
-        <ion-button fill="clear" size="default" (click)="openSearch()"><ion-icon name="search"></ion-icon>Search</ion-button>
+        <!--<ion-button fill="clear" size="default" (click)="openSearch()"><ion-icon name="search"></ion-icon>Search</ion-button>-->
         <ion-card *ngFor="let x of ex3; let i = index" (click)="open(i)">
             <ion-card-header>
                 <!--<template *ngIf="brag">
@@ -37,7 +37,7 @@
         <h4>{{this.sub}}</h4>
         <div style="width: 100%"><div style="display: inline" align="left">By: {{this.poster}}</div><div style="display: inline;" align="right"><div style="display: inline" *ngIf="this.up"><ion-button fill="clear" size="default"><ion-icon name="thumbs-up"></ion-icon></ion-button></div><div style="display: inline" *ngIf="!this.up"><ion-button fill="clear" size="default" (click)="this.voteDetailUp()"><ion-icon name="thumbs-up-outline"></ion-icon></ion-button></div><ion-button fill="clear">{{this.votes}}</ion-button><div style="display: inline" *ngIf="this.down"><ion-button fill="clear" size="default"><ion-icon name="thumbs-down"></ion-icon></ion-button></div><div style="display: inline" *ngIf="!this.down"><ion-button fill="clear" size="default" (click)="this.voteDetailDown()"><ion-icon name="thumbs-down-outline"></ion-icon></ion-button></div></div></div>
         {{this.cont}}
-    </div>
+    </div><!--
     <div *ngIf="this.search">
         <ion-input [(ngModel)]="searchTerm" placeholder="Search term - blank for all"></ion-input>
         <ion-select #Select multiple="true" cancelText="Cancel" okText="Confirm" (ionChange)="logLog(Select.value)">
@@ -65,7 +65,7 @@
                 <div>
                     <h2>I'm awesome!</h2>
                 </div>
-            </template>-->
+            </template>
             <ion-card-subtitle><div style="display: inline" *ngIf="ex32[i][5] == base">😀</div><div style="display: inline" *ngIf="ex32[i][6] == base">😡</div><div style="display: inline" *ngIf="ex32[i][7] == base">😰</div><div style="display: inline" *ngIf="ex32[i][8] == base">⚡</div><div style="display: inline" *ngIf="ex32[i][9] == base">😟</div><br />{{ex3[i][1]}}</ion-card-subtitle>
             <ion-card-title>{{ex32[i][0]}}</ion-card-title>
         </ion-card-header>
@@ -76,5 +76,5 @@
     </ion-card>
     </div>
 
-    </div>
+    </div>-->
 </ion-content>

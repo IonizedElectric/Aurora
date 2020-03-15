@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { map } from 'rxjs/operators';
 import { promise } from 'protractor';
 import { from, defer } from 'rxjs';
-import { AlertController } from '@ionic/angular';
+import { AlertController} from '@ionic/angular';
 import { Chart, TimeUnit } from 'chart.js';
 import { formatDate } from '@angular/common';
-import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
@@ -16,7 +16,7 @@ import { Storage } from '@ionic/storage';
 export class HomePage implements OnInit {
     @ViewChild('lineCanvas') barChart;
     private lineChart: Chart;
-    constructor(public alertController: AlertController, private storage: Storage) { }
+    constructor(public alertController: AlertController, public router: Router) { }
     happy: number;
     angry: number;
     stressy: number;
@@ -24,13 +24,20 @@ export class HomePage implements OnInit {
     worry: number;
     bars: any;
     colorArray: any;
-    happiness: Array<any>;
-    anger: Array<any>;
-    stress: Array<any>;
-    energetic: Array<any>;
-    worrier: Array<any>;
-
+    public happiness = [];
+    public anger = [];
+    public stress = [];
+    public energetic = [];
+    public worrier = [];
+    public dates = [];
     ngOnInit() {
+        //var settings = JSON.parse(localStorage.getItem("settings"));
+        if (localStorage.getItem("loginState") == "0" || localStorage.getItem("loginState") == null) {
+            this.router.navigate(['/signin']);
+        }
+        else {
+            //console.log("U_id: " + Number(global.u_id));
+        }
         this.unit = "day";
         this.happy = 50;
         this.angry = 50;
@@ -48,16 +55,9 @@ export class HomePage implements OnInit {
         console.log(temp2);*/
     }
     ionViewDidEnter() {
-        this.define();
-        //this.keyParse();
+        //this.define();
+        this.keyParse();
         this.createLineChart();
-    }
-    define() {
-        this.happiness = [{ x: Date.now(), y: 35 }];
-        this.anger = [{ x: Date.now(), y: 35 }];
-        this.stress = [{ x: Date.now(), y: 35 }];
-        this.energetic = [{ x: Date.now(), y: 35 }];
-        this.worrier = [{ x: Date.now(), y: 35 }];
     }
     createLineChart() {
 
@@ -67,35 +67,35 @@ export class HomePage implements OnInit {
                 //labels: [formatDate(new Date().setDate(d.getDate() - 7), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 6), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 5), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 4), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 3), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 2), "EEEE", "en_GB"), 'Yesterday', 'Today'],
                 datasets: [{
                     label: 'Happiness',
-                    data: this.happiness,
+                    data: this.happinessKey(),
                     backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
                     borderColor: '#62ff29',// array should have same number of elements as number of dataset
                     borderWidth: 1
                 }, {
                         label: 'Anger',
-                        data: this.anger,
-                        backgroundColor: 'rgba(0,0,0,0)',
-                        borderColor: '#ff0000',
-                        borderWidth: 1
-                    }, {
+                        data: this.angerKey(),
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    borderColor: '#ff0000',
+                    borderWidth: 1
+                }, {
                         label: 'Stress',
-                        data: this.happiness,
-                        backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
-                        borderColor: '#cc7722',// array should have same number of elements as number of dataset
-                        borderWidth: 1
-                    }, {
+                        data: this.stressKey(),
+                    backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
+                    borderColor: '#cc7722',// array should have same number of elements as number of dataset
+                    borderWidth: 1
+                }, {
                         label: 'Energy',
-                        data: this.energetic,
-                        backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
-                        borderColor: '#ffff00',// array should have same number of elements as number of dataset
-                        borderWidth: 1
-                    }, {
+                        data: this.energyKey(),
+                    backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
+                    borderColor: '#ffff00',// array should have same number of elements as number of dataset
+                    borderWidth: 1
+                }, {
                         label: 'Worry',
-                        data: this.worrier,
-                        backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
-                        borderColor: '#41009c',// array should have same number of elements as number of dataset
-                        borderWidth: 1
-                    }]
+                        data: this.worryKey(),
+                    backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
+                    borderColor: '#41009c',// array should have same number of elements as number of dataset
+                    borderWidth: 1
+                }]
             },
             options: {
                 scales: {
@@ -110,13 +110,51 @@ export class HomePage implements OnInit {
                             beginAtZero: true
                         }
                     }]
-                    
+
                 }
             }
         });
     }
+    happinessKey() {
+        let list = [];
+        for (var i = 0; i < this.happiness.length; i++) {
+            console.log("pushing: " + { x: this.dates[i], y: this.happiness[i] });
+            list.push({ x: this.dates[i], y: this.happiness[i] });
+        }
+        console.log("happyList: " + this.happiness);
+        console.log("list: " + list);
+        return list;
+    }
+    angerKey() {
+        let list = [];
+        for (var i = 0; i < this.anger.length; i++) {
+            list.push({ x: this.dates[i], y: this.anger[i] });
+        }
+        return list;
+    }
+    stressKey() {
+        let list = [];
+        for (var i = 0; i < this.stress.length; i++) {
+            list.push({ x: this.dates[i], y: this.stress[i] });
+        }
+        return list;
+    }
+    energyKey() {
+        let list = [];
+        for (var i = 0; i < this.energetic.length; i++) {
+            list.push({ x: this.dates[i], y: this.energetic[i] });
+        }
+        return list;
+    }
+    worryKey() {
+        let list = [];
+        for (var i = 0; i < this.worrier.length; i++) {
+            list.push({ x: this.dates[i], y: this.worrier[i] });
+        }
+        return list;
+    }
     unit: TimeUnit;
-    async presentAlertConfirm(header1,message) {
+    async presentAlertConfirm(header1, message) {
         const alert = await this.alertController.create({
             header: header1,
             message: message,
@@ -160,15 +198,29 @@ export class HomePage implements OnInit {
         try {
             var data2 = [this.happy, this.angry, this.stressy, this.energy, this.worry]
             console.log(data2);
-            this.storage.set("data", {date: Date.now(), data: data2})
-                .then(
-                    () => console.log("Saved"),
-                    error => console.error('Error storing item', error)
-                );
+            var local = JSON.parse(localStorage.getItem("data"));
+            if (local.dates != null) {
+                local.dates.push(Date.now());
+                local.data.push(data2);
+            } else {
+                local.dates = [];
+                local.data = [];
+                local.dates.push(Date.now());
+                local.data.push(data2);
+            }
+            localStorage.setItem("data", JSON.stringify(local));
+            console.log("Save: " + localStorage.getItem("data"));
+            
         }
-        catch(error){
-            this.presentAlertConfirm("Something is <b>very</b> wrong - 0x2",  "We failed to save locally. The best thing you can do right now is <s>cry</s>restart the app.");
+        catch (error) {
+            console.warn(error);
+            localStorage.setItem("data", JSON.stringify({ "data": [], "dates": [] }));
+            this.save();
+            //this.presentAlertConfirm("Something is <b>very</b> wrong - 0x2",  "We failed to save locally. The best thing you can do right now is <s>cry</s>restart the app.");
         }
+
+        this.keyParse();
+        location.reload();
             /*
             console.log("Happiness: " + this.happy.toString() + "\n" +
                 "Anger: " + this.angry.toString() + "\n" +
@@ -178,26 +230,45 @@ export class HomePage implements OnInit {
             //this.nativeStorage.setItem(new Date(), {property: values, anotherProperty: 'anotherValue'}).then(() => console.log('Stored item!'),error => console.error('Error storing item', error));
      */};
     keyParse() {
-        this.storage.forEach((value, key, index) => {
-            if (this.checkSubstrings(value)) {
-                this.happiness.push({ x: key, y: value[0] });
-                this.anger.push({ x: key, y: value[1] });
-                this.stress.push({ x: key, y: value[2] });
-                this.energetic.push({ x: key, y: value[3] });
-                this.worrier.push({ x: key, y: value[4] });
+        this.happiness = [];
+        this.anger = [];
+        this.stress = [];
+        this.energetic = [];
+        this.worrier = [];
+        var dates = JSON.parse(localStorage.getItem("data")).dates;
+        console.log(dates);
+        var data = JSON.parse(localStorage.getItem("data")).data;
+        console.log(data);
+        console.log();
+        for (var i = 0; i < dates.length; i++) {
+            if (this.checkSubstrings(dates[i])) {
+                this.happiness.push(data[i][0]);
+                this.anger.push(data[i][1]);
+                this.stress.push(data[i][2]);
+                this.energetic.push(data[i][3]);
+                this.worrier.push(data[i][4]);
+                this.dates.push(dates[i]);
             }
-        })
+        }
+        this.createLineChart();
+        console.log("happiness: ");
+        console.log(localStorage.getItem("data"));
+        console.log("raw:");
+        console.log({ x: dates[0], y: data[0][0] });
+        console.log("happyKey: "+this.happinessKey());
     }
-
     checkSubstrings(val) {
         var now;
         now = new Date();
         var ago = new Date().setDate(now.getDate() - 7);
-
-            if (val.date > ago) {
+        console.log(formatDate(ago, "full", "en_GB"));
+        console.log(val);
+        if (val > ago) {
+            console.log("yes");
                 return true;
             }
-            else {
+        else {
+            console.log("no");
                 return false;
             }
 

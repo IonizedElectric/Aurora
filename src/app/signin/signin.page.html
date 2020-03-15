@@ -1,9 +1,10 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>signin</ion-title>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content  style="text-align:center">
+    <img src="/assets/person-circle-outline.svg" alt="Icon" style="width: 50%"/>
+    <ion-input placeholder="Username" [(ngModel)]="name"></ion-input>
+    <ion-input placeholder="Password" [(ngModel)]="word" type="password"></ion-input>
+    <ion-button color="primary" style="width:100%;" (click)="login()" >Login</ion-button>
+    <h4><a href="/signup">Sign up</a></h4>
 </ion-content>

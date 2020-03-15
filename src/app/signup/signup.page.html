@@ -4,16 +4,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-list lines="full" class="ion-no-margin ion-no-padding">
-        <ion-item>
-            <ion-label position="stacked">Username<ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" placeholder="Neat username"></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="password"></ion-input>
-        </ion-item>
-    </ion-list>
+<ion-content style="text-align:center">
+    <img src="/assets/person-add.svg" alt="Icon" style="width: 50%" />
+    <ion-input placeholder="Username" [(ngModel)]="name"></ion-input>
+    <ion-input placeholder="Password" [(ngModel)]="word" type="password"></ion-input>
+    <ion-button color="primary" style="width:100%;" (click)="signup()">Sign up</ion-button>
+    <h4><a [href]="'/signin/'">Login</a></h4>
 </ion-content>

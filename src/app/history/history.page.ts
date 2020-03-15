@@ -14,43 +14,43 @@ export class HistoryPage implements OnInit {
 
   }
     ionViewDidEnter() {
+        this.keyParse();
         this.createLineChart();
     }
     bars: any;
     createLineChart() {
 
-        this.getAll()
         this.bars = new Chart(this.barChart.nativeElement, {
             type: 'line',
             data: {
                 //labels: [formatDate(new Date().setDate(d.getDate() - 7), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 6), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 5), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 4), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 3), "EEEE", "en_GB"), formatDate(new Date().setDate(d.getDate() - 2), "EEEE", "en_GB"), 'Yesterday', 'Today'],
                 datasets: [{
                     label: 'Happiness',
-                    data: this.happiness,
+                    data: this.happinessKey(),
                     backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
                     borderColor: '#62ff29',// array should have same number of elements as number of dataset
                     borderWidth: 1
                 }, {
-                    label: 'Anger',
-                    data: this.anger,
+                        label: 'Anger',
+                        data: this.angerKey(),
                     backgroundColor: 'rgba(0,0,0,0)',
                     borderColor: '#ff0000',
                     borderWidth: 1
                     }, {
                         label: 'Stress',
-                        data: this.happiness,
+                        data: this.stressKey(),
                         backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
                         borderColor: '#cc7722',// array should have same number of elements as number of dataset
                         borderWidth: 1
                     }, {
                         label: 'Energy',
-                        data: this.energy,
+                        data: this.energyKey(),
                         backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
                         borderColor: '#ffff00',// array should have same number of elements as number of dataset
                         borderWidth: 1
                     }, {
                         label: 'Worry',
-                        data: this.worry,
+                        data: this.worryKey(),
                         backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
                         borderColor: '#41009c',// array should have same number of elements as number of dataset
                         borderWidth: 1
@@ -72,33 +72,67 @@ export class HistoryPage implements OnInit {
             }
         });
     }
-    getAll() {
-        this.nativeStorage.keys().then(
-            r => this.loop(r)
-        )
+    happiness: any = [];
+    anger: any = [];
+    stress: any = [];
+    energy: any = [];
+    worry: any = [];
+    dates: any = [];
 
-        
-    }
-    happiness: any;
-    anger: any;
-    stress: any;
-    energy: any;
-    worry: any;
-
-    loop(r) {
+    keyParse() {
         this.happiness = [];
         this.anger = [];
         this.stress = [];
         this.energy = [];
         this.worry = [];
-        for (var i = 0; i < r.length; i++) {
-            let date = new Date(r[i]);
-            this.happiness.push({ x: date, y: this.nativeStorage.getItem(r[i])[0] });
-            this.anger.push({ x: date, y: this.nativeStorage.getItem(r[i])[1] });
-            this.stress.push({ x: date, y: this.nativeStorage.getItem(r[i])[2] });
-            this.energy.push({ x: date, y: this.nativeStorage.getItem(r[i])[3] });
-            this.worry.push({ x: date, y: this.nativeStorage.getItem(r[i])[4] });
+        var dates = JSON.parse(localStorage.getItem("data")).dates;
+        console.log(dates);
+        var data = JSON.parse(localStorage.getItem("data")).data;
+        console.log(data);
+        for (var i = 0; i < dates.length; i++) {
+                this.happiness.push(data[i][0]);
+                this.anger.push(data[i][1]);
+                this.stress.push(data[i][2]);
+                this.energy.push(data[i][3]);
+                this.worry.push(data[i][4]);
+                this.dates.push(dates[i]);
 
         }
+        this.createLineChart();
+    }
+    happinessKey() {
+        let list = [];
+        for (var i = 0; i < this.happiness.length; i++) {
+            list.push({ x: this.dates[i], y: this.happiness[i] });
+        }
+        return list;
+    }
+    angerKey() {
+        let list = [];
+        for (var i = 0; i < this.anger.length; i++) {
+            list.push({ x: this.dates[i], y: this.anger[i] });
+        }
+        return list;
+    }
+    stressKey() {
+        let list = [];
+        for (var i = 0; i < this.stress.length; i++) {
+            list.push({ x: this.dates[i], y: this.stress[i] });
+        }
+        return list;
+    }
+    energyKey() {
+        let list = [];
+        for (var i = 0; i < this.energy.length; i++) {
+            list.push({ x: this.dates[i], y: this.energy[i] });
+        }
+        return list;
+    }
+    worryKey() {
+        let list = [];
+        for (var i = 0; i < this.worry.length; i++) {
+            list.push({ x: this.dates[i], y: this.worry[i] });
+        }
+        return list;
     }
 }
